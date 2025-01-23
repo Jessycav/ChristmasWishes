@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 col-md-6">            
+                    <div class="col-12 col-md-6">            
                         <div class="card">
                             <div class="card-body">
                                 <h3>Changer mon mot de passe</h3>
@@ -42,16 +42,29 @@
                                         <label for="floatingPassword">Confirmation du mot de passe</label>
                                     </div>
                                     <div class="col-12 text-center">
-                                        <input type="submit" class="btn w-auto" name="changePassword" value="Changer le mot de passe"></button>
-                                    </div>
+                                        <input type="submit" class="btn w-auto" name="changePassword" data-bs-toggle="modal" data-bs-target="#changePasswordModal" value="Changer le mot de passe">
+                                        <!-- Fenêtre modale -->
+                                        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <p>Le mot de passe a été modifié</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                
                                 </form>
                             </div> 
                         </div>              
                     </div>
                     <hr>
                     <div class="col-12 text-center new-list-btn">
-                        <a href="viewMylists.php"><button class="btn me-4 w-auto">Voir mes listes</button></a>
-                        <a href="myAccount.php?logout=1" id="logout"><button class="btn">Se déconnecter</button></a>
+                        <a href="user_viewMylists.php"><button class="btn me-4 w-auto">Voir mes listes</button></a>
+                        <a href="user_account.php?logout=1" id="logout"><button class="btn">Se déconnecter</button></a>
                     </div>
                 </div>
                 </div>

@@ -74,7 +74,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn" data-bs-dismiss="modal">Fermer</button>
-                                                    <a href="myAccount.php"><button type="button" class="btn">Voir mon compte</button></a>
+                                                    <a href="user_account.php"><button type="button" class="btn">Voir mon compte</button></a>
                                                 </div>
                                             </div>
                                         </div>

@@ -9,11 +9,17 @@
             <div class="container-header row">
                 <div class="col-12 text-center">
                     <h2>Ma liste en détail</h2>
+                    <h3>Liste [Année] pour [Prénom]</h3>
                 </div>
                 <hr>
             </div>
             <div class="wishlist">
                 <div class="row mt-2">
+                    <div class="col-12 mb-2">
+                        <div class="card d-flex flex-md-row align-items-center">
+                            <p>zkkf,</p>
+                        </div>
+                    </div>
                     <!-- Première carte -->
                     <div class="col-12 mb-2">
                         <div class="card d-flex flex-md-row align-items-center">
@@ -32,6 +38,8 @@
                             <!-- Bouton -->
                             <div class="col-md-2 text-center mt-2 mt-md-0">
                                 <button class="btn offer-button w-100" data-status="available">Offrir ce cadeau</button>
+                                <a href="modif_list.php" class="btn">Modifier</a>
+                                <a href="suppr_list.php" class="btn">Supprimer</a>
                             </div>
                         </div>
                     </div>
@@ -53,6 +61,8 @@
                             <!-- Bouton -->
                             <div class="col-md-2 text-center mt-2 mt-md-0">
                                 <button class="btn offer-button w-100" data-status="offered">Déjà offert</button>
+                                <a href="modif_list.php" class="btn">Modifier</a>
+                                <a href="suppr_list.php" class="btn">Supprimer</a>
                             </div>
                         </div>
                     </div>
