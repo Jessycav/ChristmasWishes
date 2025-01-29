@@ -17,8 +17,6 @@ setTimeout(() => {
     clearInterval(interval);
 }, 3000);
 
-
-
 // Animation pour les bouton Offrir/ Déjà offert
 const offerButtons = document.querySelectorAll('.offer-button');
 
@@ -32,5 +30,4 @@ offerButtons.forEach(button => {
             button.disabled = true;
         }
     })
-})
-
+});

@@ -1,15 +1,29 @@
 <?php 
-    require_once 'components/connection.php';
-
     require_once 'components/header.php';
-?>
+    require_once 'components/connection.php';
+    session_start();
+    // Vérifier qu'un utilisateur est bien connecté 
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: authentification.php'); // Renvoie vers la page de connexion
+        exit;
+    }
+    //Récupérer les cadeaux de la liste
+    $stmt = $conn->prepare("SELECT * FROM wishlist WHERE wishlist_id = :wishlist_id");
+    $stmt->bindValue(':wishlist_id', $wishlist_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(); 
 
+
+
+?>
     <section id="page">
         <div class="container">
             <div class="container-header row">
                 <div class="col-12 text-center">
                     <h2>Ma liste en détail</h2>
-                    <h3>Liste [Année] pour [Prénom]</h3>
+
+                    <h3>Liste < [Prénom]</h3>
+
                 </div>
                 <hr>
             </div>
@@ -59,52 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Première carte -->
-                    <div class="col-12 mb-2">
-                        <div class="card d-flex flex-md-row align-items-center">
-                            <!-- Image -->
-                            <div class="col-md-2">
-                                <img src="https://www.king-jouet.com/fstrz/r/s/images.king-jouet.com/6/gu887021_6.jpg?frz-v=4213" class="img-fluid rounded-start" style="max-width: 100px;">
-                            </div>
-                            <!-- Contenu -->
-                            <div class="col-md-8 text-center mt-2 mt-md-0">
-                                <h5 class="card-title">[Numéro] Micro lumineux Pat'Patrouille</h5>
-                                <div class="card-body">
-                                    <p class="card-text">Avec le micro lumineux Pat'Patrouille votre enfant va se transformer en chanteur !</p>
-                                    <p class="card-url">Lien</p>
-                                </div>
-                            </div>
-                            <!-- Bouton -->
-                            <div class="col-md-2 text-center mt-2 mt-md-0">
-                                <button class="btn offer-button w-100" data-status="available">Offrir ce cadeau</button>
-                                <a href="modif_list.php" class="btn">Modifier</a>
-                                <a href="suppr_list.php" class="btn">Supprimer</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fin de la première carte -->
-                    <div class="col-12 mb-2">
-                        <div class="card d-flex flex-md-row align-items-center">
-                            <!-- Image -->
-                            <div class="col-md-2">
-                                <img src="https://www.king-jouet.com/fstrz/r/s/images.king-jouet.com/6/gu887021_6.jpg?frz-v=4213" class="img-fluid rounded-start" style="max-width: 100px;">
-                            </div>
-                            <!-- Contenu -->
-                            <div class="col-md-8 text-center mt-2 mt-md-0">
-                                <h5 class="card-title">[Numéro] Micro lumineux Pat'Patrouille</h5>
-                                <div class="card-body">
-                                    <p class="card-text">Avec le micro lumineux Pat'Patrouille votre enfant va se transformer en chanteur !</p>
-                                    <p class="card-url">Lien</p>
-                                </div>
-                            </div>
-                            <!-- Bouton -->
-                            <div class="col-md-2 text-center mt-2 mt-md-0">
-                                <button class="btn offer-button w-100" data-status="offered">Déjà offert</button>
-                                <a href="modif_list.php" class="btn">Modifier</a>
-                                <a href="suppr_list.php" class="btn">Supprimer</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

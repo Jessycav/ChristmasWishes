@@ -6,8 +6,8 @@
     // Gestion de l'inscription d'un utilisateur
     if (isset($_POST['register'])) {
         // Récupération et sécurisation des données du formulaire
-        $user_firstname = htmlspecialchars($_POST['firstname']);
-        $user_lastname = htmlspecialchars($_POST['lastname']);
+        $user_firstname = htmlspecialchars($_POST['firstname'], ENT_QUOTES);
+        $user_lastname = htmlspecialchars($_POST['lastname'], ENT_QUOTES);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         //Préparation de la requête SQL sécurisée
@@ -29,17 +29,24 @@
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $password = $_POST['password'];
 
-        $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch();
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['user_id'];
-            header('Location: user_account.php');
-            exit;
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['user_firstname'] = $user['user_firstname'];
+                $_SESSION['user_lastname'] = $user['user_lastname'];
+                $_SESSION['email'] = $user['email'];
+                header('Location: user_account.php');
+                exit;
+            } else {
+                echo "Email ou mot de passe incorrect";
+            }
         } else {
-            echo "Email ou mot de passe incorrect";
+            echo "Adresse email invalide";
         }
     }
 ?>
@@ -63,11 +70,11 @@
                             <form method="POST">
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
-                                    <label for="floatingInput">Adresse email</label>
+                                    <label for="floatingInput"><i class="fa-solid fa-envelope"></i>Adresse email</label>
                                 </div>
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-                                    <label for="floatingPassword">Mot de passe</label>
+                                    <label for="floatingPassword"><i class="fa-solid fa-key"></i>Mot de passe</label>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" name="login" class="btn">Se connecter</button>
@@ -85,23 +92,23 @@
                             <form method="POST" class="row g-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="floatingInput" name="firstname" placeholder="First name" aria-label="First name">
-                                    <label for="floatingInput">Prénom</label>
+                                    <label for="floatingInput"><i class="fa-solid fa-user"></i>Prénom</label>
                                 </div>
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="floatingInput" name="lastname" placeholder="Last name" aria-label="Last name">
-                                    <label for="floatingInput">Nom</label>
+                                    <label for="floatingInput"><i class="fa-solid fa-user"></i>Nom</label>
                                 </div>
                                 <div class="form-floating">
                                     <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
-                                    <label for="floatingInput">Adresse email</label>
+                                    <label for="floatingInput"><i class="fa-solid fa-envelope"></i>Adresse email</label>
                                 </div>
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-                                    <label for="floatingPassword">Mot de passe</label>
+                                    <label for="floatingPassword"><i class="fa-solid fa-key"></i>Mot de passe</label>
                                 </div>
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                    <label for="floatingPassword">Confirmation du mot de passe</label>
+                                    <label for="floatingPassword"><i class="fa-solid fa-key"></i>Confirmation du mot de passe</label>
                                 </div>
                                 <div class="form-floating col-12">
                                     <!-- Bouton fenêtre modale -->
